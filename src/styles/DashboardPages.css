@@ -1,0 +1,61 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: auto; /* Ajusta la altura según el contenido */
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.dashboard-content {
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se envuelvan en filas */
+  gap: 20px; /* Espacio entre las tarjetas */
+  justify-content: flex-start; /* Alinea las tarjetas al inicio */
+  margin-top: 20px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: calc(33.33% - 20px); /* Ancho de 1/3 menos el espacio de separación */
+  max-width: 400px; /* Limita el ancho máximo */
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 600PX;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.card p {
+  color: #666;
+}
+
+/* Estilos responsivos para pantallas medianas */
+@media (max-width: 1024px) {
+  .card {
+    width: calc(50% - 20px); /* Dos tarjetas por fila */
+  }
+}
+
+/* Estilos responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .card {
+    width: 100%; /* Una tarjeta por fila */
+  }
+}

@@ -1,0 +1,583 @@
+/* src/styles/UserCatalogsPage.css */
+
+/* --- Colores y valores base (directamente en los estilos) --- */
+/* Paleta de colores */
+.primary-color-value { color: #191970; }
+.primary-bg-value { background-color: #191970; }
+.primary-hover-bg-value { background-color: #000733; }
+
+.text-color-primary { color: #111827; }
+.text-color-secondary { color: #4b5563; }
+
+.card-background-value { background-color: #ffffff; }
+.light-background-value { background-color: #f9fafb; }
+.page-gradient-background-value { background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 100%); }
+
+.border-color-default { border-color: #e5e7eb; }
+.shadow-small { box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); }
+.shadow-medium { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+.shadow-large { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+
+.border-radius-medium { border-radius: 12px; }
+.border-radius-small { border-radius: 8px; }
+
+.transition-default { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+.accent-blue-gradient-bg { background: linear-gradient(90deg, #191970, #3a479b); }
+.danger-color-background { background-color: #e53935; }
+.danger-color-text { color: #e53935; }
+.danger-hover-background { background-color: #c62828; }
+.success-message-background { background-color: #d4edda; }
+.success-message-text-color { color: #155724; }
+.info-color-background { background-color: #f8f9fa; }
+.info-color-text { color: #6c757d; }
+
+
+/* --- Estilos Globales (aplicados a body y html) --- */
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 100%); /* page-gradient-background-value */
+  background-attachment: fixed;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Fuente por defecto */
+}
+
+/* --- Contenedor Principal de la Página de Catálogos --- */
+.catalog-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 100%);
+  background-attachment: fixed;
+  padding: 24px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* --- Encabezado de la Página --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 15px;
+  flex-wrap: wrap;
+  position: relative;
+  border-bottom: 1px solid #e5e7eb; /* border-color-default */
+  padding-bottom: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.catalog-list-title { /* Renombrado de .page-title para mayor especificidad */
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #111827; /* text-color-primary */
+  margin: 0;
+  padding: 10px 0;
+  flex: 1;
+  position: relative;
+}
+
+.catalog-list-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #191970, #3a479b); /* accent-blue-gradient-bg */
+  border-radius: 2px;
+}
+
+/* --- Contenedor y Botón Expandible "Crear nuevo catálogo" --- */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 40px;
+  padding-right: 10px;
+  align-self: flex-end;
+}
+
+.expandable-add-button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  color: #111827; /* text-color-primary */
+  border-radius: 24px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transition-default */
+  border: none;
+}
+
+.plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #191970; /* primary-bg-value */
+  color: #ffffff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transition-default */
+  z-index: 2;
+}
+
+.button-text {
+  white-space: nowrap;
+  padding: 0 16px 0 12px;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s ease, max-width 0.3s ease;
+  color: #315d2c;
+  font-weight: 500;
+  margin-left: 8px;
+}
+
+.expandable-add-button:hover .button-text {
+  max-width: 200px;
+  opacity: 1;
+}
+
+.expandable-add-button:hover .plus-icon {
+  background-color: #4B5922; /* primary-hover-bg-value */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.expandable-add-button:hover {
+  background-color: rgba(25, 25, 112, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding-right: 16px;
+}
+
+/* --- Contenido Principal de la Tarjeta (para lista de catálogos) --- */
+.catalog-content { /* Usado como .main-content-card en tu estructura anterior */
+  background-color: #ffffff; /* card-background-value */
+  border-radius: 12px; /* border-radius-medium */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-large */
+  padding: 36px;
+  width: 100%;
+  max-width: 1200px;
+  animation: fadeInUp 0.6s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto 24px auto; /* Añadir margen inferior */
+}
+
+.catalog-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #191970, #3a479b); /* accent-blue-gradient-bg */
+  border-radius: 12px 12px 0 0;
+}
+
+/* --- Cuadrícula de Catálogos --- */
+.catalog-grid { /* Unificado con .catalogs-grid */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* --- Estilo de las Tarjetas de Catálogo --- */
+.catalog-card { /* Unificado con .item-card */
+  background-color: #ffffff; /* card-background-value */
+  border-radius: 8px; /* border-radius-small */
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* shadow-small */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transition-default */
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+.catalog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-medium */
+}
+
+/* --- Contenedor e Imagen del Catálogo --- */
+.catalog-image-container { /* Unificado con .item-image-container */
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.catalog-card-image { /* Unificado con .item-image */
+  width: 100%;
+  height: 100%;
+  min-width: 200px;
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transition-default */
+}
+
+.catalog-card:hover .catalog-card-image {
+  transform: scale(1.05);
+}
+
+/* --- Contenedor de Acciones de la Tarjeta (Editar/Eliminar) --- */
+.catalog-card-actions { /* Similar a .item-actions */
+  position: absolute;
+  top: 10px;
+  left: 10px; /* Posicionamiento a la izquierda para el edit */
+  right: 10px; /* Asegura que el delete queda a la derecha */
+  display: flex;
+  justify-content: space-between; /* Para que el edit y delete estén en extremos opuestos */
+  gap: 8px; /* Espacio entre botones si hubiera más */
+  z-index: 10;
+}
+
+/* --- Botón de Editar --- */
+/* FaEdit es el componente, así que le aplicamos la clase directamente a él si es el único contenido del Link */
+.fa-edit { /* La clase que le asignaste al componente FaEdit en el JSX */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semitransparente */
+  color: #4b5563; /* text-color-secondary */
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.fa-edit:hover {
+  background-color: #191970; /* primary-color-value */
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+/* --- Botón de Eliminar --- */
+.delete-button { /* Unificado con .delete-button de tu segundo CSS */
+  background-color: rgba(231, 76, 60, 0.85); /* danger-color-background con transparencia */
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px; /* Ajuste para el '×' */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Asegura que esté por encima de la imagen */
+  transition: all 0.2s ease;
+  padding: 0; /* Eliminar padding por defecto del botón */
+  line-height: 1; /* Asegurar que el '×' esté centrado */
+}
+
+.delete-button:hover {
+  background-color: #e74c3c; /* danger-hover-background */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Detalles de la Tarjeta --- */
+.catalog-card h3 { /* Unificado con .item-name y .catalog-name */
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+  color: #111827; /* text-color-primary */
+  padding: 16px 16px 0 16px;
+}
+
+.catalog-card p { /* Unificado con .item-description y .catalog-description */
+  color: #4b5563; /* text-color-secondary */
+  font-size: 0.95rem;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  padding: 0 16px 16px 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- Mensajes de Estado --- */
+.loading-message,
+.error-message,
+.catalog-list-empty { /* Unificado .no-items-message y .no-catalogs-message */
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-radius: 8px; /* border-radius-small */
+  width: 100%;
+  max-width: 600px;
+}
+
+.loading-message {
+  background-color: #f0f8ff; /* Azul claro para carga */
+  color: #2c3e50;
+}
+
+.error-message {
+  color: #e53e3e; /* danger-color-text */
+  background-color: rgba(229, 62, 62, 0.1);
+}
+
+.catalog-list-empty {
+  background-color: #f8f9fa; /* info-color-background */
+  color: #6c757d; /* info-color-text */
+  padding: 40px;
+  font-size: 1.2rem;
+}
+
+/* --- Mensaje de Carga de Imagen en Tarjeta --- */
+.catalog-image-container > div { /* Estilo para el div de "Cargando..." */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  background: rgba(255,255,255,0.8);
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #4b5563; /* text-color-secondary */
+}
+
+/* --- Botón de Regreso --- */
+.back-button {
+  background-color: #315d2c; /* primary-bg-value */
+  color: #ffffff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px; /* border-radius-small */
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* transition-default */
+  box-shadow: 0 2px 4px rgba(25, 25, 112, 0.2);
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-button:hover {
+  background-color: #8DA054; /* primary-hover-bg-value */
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(25, 25, 112, 0.3);
+}
+
+.back-button:active {
+  transform: translateY(0);
+}
+
+.arrow {
+  font-size: 1.2rem;
+}
+
+/* --- Estilos para el Modal de Confirmación --- */
+/* Estos estilos son para un componente `ConfirmationModal` externo, pero están unificados aquí */
+.custom-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.custom-modal {
+  background-color: #ffffff;
+  border-radius: 8px; /* border-radius-small */
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: slideIn 0.3s ease;
+}
+
+.custom-modal-header {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb; /* border-color-default */
+}
+
+.custom-modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: #111827; /* text-color-primary */
+}
+
+.close-modal-button {
+  background: transparent;
+  border: none;
+  color: #4b5563; /* text-color-secondary */
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.close-modal-button:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+  color: #111827; /* text-color-primary */
+}
+
+.custom-modal-body {
+  padding: 20px;
+}
+
+.error-message-modal {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}
+
+.danger-text {
+  color: #e53935; /* danger-color-text */
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.custom-modal-footer {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #e5e7eb; /* border-color-default */
+}
+
+.cancel-button {
+  background-color: #f5f5f5;
+  color: #111827; /* text-color-primary */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.cancel-button:hover {
+  background-color: #e0e0e0;
+}
+
+.confirm-delete-button {
+  background-color: #e53935; /* danger-color-background */
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.confirm-delete-button:hover {
+  background-color: #c62828; /* danger-hover-background */
+}
+
+.cancel-button:disabled,
+.confirm-delete-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- Animaciones --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* --- Estilos Responsivos --- */
+@media (max-width: 1024px) {
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .button-container {
+    margin-left: 0;
+    margin-top: 15px;
+    align-self: flex-start;
+  }
+
+  .catalog-content {
+    padding: 24px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .catalog-list-page {
+    padding: 16px;
+  }
+  .custom-modal {
+    width: 90%;
+    margin: 0 10px;
+  }
+}

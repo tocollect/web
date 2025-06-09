@@ -1,0 +1,234 @@
+/* src/styles/CatalogForm.css */
+
+.catalog-form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2.5rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow:
+          0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+
+.catalog-form-title {
+  font-size: 1.875rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: -0.025em;
+}
+
+.catalog-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #1a1a1a;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #315d2c;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(49, 93, 44, 0.1);
+  background-color: rgba(49, 93, 44, 0.02);
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+  border-color: #8DA054;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+.form-group input[type="file"] {
+  padding: 0.75rem;
+  border: 2px dashed #e5e7eb;
+  background-color: #f8fafc;
+  cursor: pointer;
+  text-align: center;
+  color: #6b7280;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: #8DA054;
+  background-color: rgba(49, 93, 44, 0.02);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #315d2c;
+  cursor: pointer;
+}
+
+.checkbox-group label {
+  margin: 0;
+  font-weight: 400;
+  color: #1a1a1a;
+  text-transform: none;
+  letter-spacing: normal;
+  cursor: pointer;
+}
+
+.image-preview {
+  margin-top: 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f8fafc;
+}
+
+.image-preview img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.error-message {
+  background-color: #fef2f2;
+  color: #dc2626;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid #dc2626;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.submit-button {
+  padding: 0.875rem 1.5rem;
+  background-color: #315d2c;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.5rem;
+}
+
+.submit-button:hover {
+  background-color: #4B5922;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(49, 93, 44, 0.2);
+}
+
+.submit-button:active {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cancel-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #f8fafc;
+  color: #6b7280;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.cancel-button:hover {
+  background-color: #e5e7eb;
+  color: #1a1a1a;
+  border-color: #d1d5db;
+}
+
+/* Estilo especial para el botón de eliminar imagen */
+.image-preview .cancel-button {
+  margin: 1rem;
+  background-color: #fef2f2;
+  color: #dc2626;
+  border-color: #fecaca;
+}
+
+.image-preview .cancel-button:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .catalog-form-container {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  .catalog-form-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .catalog-form-container {
+    padding: 1rem;
+  }
+
+  .catalog-form {
+    gap: 1rem;
+  }
+}

@@ -1,0 +1,428 @@
+
+
+/* Reset y estilos base */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-light);
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* Contenedor principal de autenticación */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #f9fafb 0%, #eef2ff 100%);
+  padding: 24px;
+  margin: 0 auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Tarjeta de autenticación */
+.auth-card {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 36px;
+  width: 100%;
+  max-width: 450px;
+  animation: fadeInUp 0.6s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--primary-color), #8b5cf6);
+  border-radius: 10px;
+}
+
+/* Título */
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 28px;
+  color: var(--text-primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+  position: relative;
+  padding-bottom: 14px;
+}
+
+.auth-card h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-color), #8b5cf6);
+  border-radius: 2px;
+}
+
+/* Grupos de formularios */
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  transition: var(--transition-normal);
+}
+
+/* Inputs */
+.form-group input[type="email"],
+.form-group input[type="text"],
+.password-wrapper input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: var(--transition-normal);
+  outline: none;
+  color: var(--text-primary);
+  background-color: var(--bg-light);
+}
+
+.form-group input:focus,
+.password-wrapper input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.15);
+  background-color: white;
+}
+
+.form-group input:hover,
+.password-wrapper input:hover {
+  border-color: #d1d5db;
+}
+
+.form-group input::placeholder,
+.password-wrapper input::placeholder {
+  color: #9ca3af;
+}
+
+/* Wrapper de contraseña */
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 45px;
+}
+
+/* Botón toggle de contraseña */
+.toggle-password-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  padding: 6px;
+  border-radius: 50%;
+  transition: var(--transition-normal);
+}
+
+.toggle-password-btn:hover {
+  color: var(--primary-color);
+  background-color: rgba(79, 70, 229, 0.1);
+}
+
+.toggle-password-btn:focus {
+  outline: none;
+}
+
+/* Botón de envío */
+.btn-submit {
+  width: 100%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+  margin-top: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-submit:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  background-color: #a5b4fc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-submit::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-submit:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+/* Enlaces */
+.auth-card p {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.auth-card a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-normal);
+  position: relative;
+}
+
+.auth-card a:hover {
+  color: var(--primary-hover);
+}
+
+.auth-card a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--primary-color);
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.auth-card a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: var(--error-color);
+  background-color: rgba(239, 68, 68, 0.1);
+  padding: 12px 16px;
+  border-left: 4px solid var(--error-color);
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Mensaje de éxito */
+.success-message {
+  color: var(--success-color);
+  background-color: rgba(16, 185, 129, 0.1);
+  padding: 12px 16px;
+  border-left: 4px solid var(--success-color);
+  font-size: 0.95rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Mensaje de carga */
+.loading-message {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Notificaciones */
+.notification {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  z-index: 1000;
+  animation: slideIn 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  max-width: 350px;
+  display: flex;
+  align-items: center;
+}
+
+.notification.success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.notification.error {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.notification.info {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* Layout de la aplicación */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Dashboard */
+.dashboard-container {
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.dashboard-content {
+  background-color: var(--card-bg);
+  padding: 32px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.logout-button {
+  width: auto;
+  background-color: var(--error-color);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-normal);
+}
+
+.logout-button:hover {
+  background-color: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .auth-card {
+    padding: 24px;
+  }
+  
+  .dashboard-container {
+    padding: 16px;
+  }
+  
+  .dashboard-content {
+    padding: 20px;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-5px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}

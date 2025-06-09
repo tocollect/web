@@ -1,0 +1,543 @@
+/* src/styles/ItemDetail.css */
+
+/* General container and card styling */
+.item-detail-container {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #f5f7fa; /* Un gris azulado muy suave para el fondo de la página */
+    min-height: 100vh; /* Asegurar que ocupe toda la altura visible */
+}
+
+.item-detail-card {
+    background-color: #ffffff; /* Blanco para la tarjeta */
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra más pronunciada */
+    width: 100%;
+    max-width: 900px;
+    /* Eliminar overflow: hidden; para que la tarjeta pueda crecer en alto si los comentarios lo requieren */
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Header Styling */
+.item-detail-header {
+    background-color: #315d2c; /* Verde principal */
+    color: #ffffff; /* Texto blanco para el título del encabezado */
+    padding: 18px 25px;
+    text-align: center;
+    border-bottom: 3px solid #4B5922; /* Acento verde más oscuro */
+}
+
+.item-detail-header h2 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: #ffffff; /* **Aseguramos que el color del texto del título sea blanco** */
+}
+
+/* Main Content Area */
+.item-detail-content {
+    display: flex;
+    flex-direction: column; /* Mobile: imagen arriba, info abajo */
+    padding: 25px;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .item-detail-content {
+        flex-direction: row; /* Desktop: imagen izquierda, info derecha */
+        align-items: flex-start;
+        gap: 30px;
+    }
+}
+
+/* Image Container */
+.item-detail-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px; /* Margen para mobile */
+}
+
+@media (min-width: 768px) {
+    .item-detail-image-container {
+        min-width: 200px;
+        max-width: 300px;
+        margin-bottom: 0; /* No margen en desktop */
+    }
+}
+
+.item-image-detail {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: contain;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    background-color: #f9fafb;
+    padding: 5px;
+}
+
+/* Item Info (Description & Rating) */
+.item-detail-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.item-description {
+    margin-bottom: 0;
+    padding-bottom: 15px;
+    border-bottom: 1px dashed #e5e7eb;
+}
+
+.item-description h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    color: #111827;
+    font-size: 1.3rem;
+}
+
+.item-description p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+/* Rating Section */
+.item-rating-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 1.5rem;
+    margin-top: 0;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.average-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.average-rating h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #111827;
+    font-size: 1.4rem;
+}
+
+.rating-display {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.rating-number {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #6c757d;
+}
+
+.rating-max {
+    margin-left: 4px;
+    font-size: 1.1rem;
+    color: #4b5563;
+}
+
+.rate-item-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.rate-item-section h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #111827;
+    font-size: 1.3rem;
+}
+
+.rating-selector {
+    display: flex;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.rating-selector::-webkit-scrollbar {
+    height: 5px;
+}
+
+.rating-selector::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.rating-selector::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+.rating-selector::-webkit-scrollbar-thumb:hover {
+    background: #bbb;
+}
+
+.rating-seta {
+    background: none;
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 6px;
+    border-radius: 8px;
+    flex-shrink: 0;
+}
+
+.rating-seta:hover {
+    background: #315d2c;
+    border-color: #315d2c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(49, 93, 44, 0.2);
+}
+
+.rating-seta:hover .rating-value {
+    color: #ffffff;
+}
+
+.rating-seta.selected {
+    background: #315d2c;
+    border-color: #315d2c;
+    box-shadow: 0 4px 12px rgba(49, 93, 44, 0.3);
+}
+
+.seta-image {
+    width: 32px;
+    height: 32px;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.rating-seta:hover .seta-image,
+.rating-seta.selected .seta-image {
+    filter: grayscale(0%) brightness(1.2);
+}
+
+.rating-seta.selected .seta-image {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
+}
+
+.rating-value {
+    font-weight: bold;
+    margin-top: 4px;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.rating-seta.selected .rating-value {
+    color: #111827;
+}
+
+.rating-success-message {
+    margin-top: 10px;
+    padding: 8px 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+/* Actions (Back button) */
+.item-detail-actions {
+    padding: 1rem 20px;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+
+}
+
+.back-button {
+    background-color: #315d2c;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 6rem;
+}
+
+.back-button:hover {
+    background-color: #8DA054;
+    transform: translateY(-1px);
+    box-shadow: 8DA054 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.arrow {
+    font-size: 1.1rem;
+}
+/* Comments Section */
+.comments-section {
+    margin-top: 1.5rem;
+    padding: 1.5rem 20px;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border-top: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comments-header {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e5e7eb;
+    font-size: 1.5rem;
+    color: #111827;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+
+    /* --- Estilos para el scroll --- */
+    max-height: 250px; /* Ajusta esta altura (e.g., 250px) para que, aproximadamente, solo se vean 3 comentarios antes del scroll */
+    overflow-y: auto;  /* Permite el scroll vertical si el contenido excede el max-height */
+    padding-right: 6px; /* Espacio para que el scrollbar no se pegue al contenido */
+}
+
+/* --- Estilos del scrollbar (solo para navegadores basados en WebKit como Chrome/Safari) --- */
+.comments-list::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+.comments-list::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Color del "pulgar" */
+  border-radius: 4px; /* Bordes redondeados para el pulgar */
+}
+
+.comments-list::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Color del "fondo" del scrollbar */
+}
+
+/* --- Estilos para Firefox --- */
+.comments-list {
+  scrollbar-width: thin; /* 'auto' | 'thin' | 'none' */
+  scrollbar-color: #ccc #f1f1f1; /* thumb color track color */
+}
+
+
+.comment-bubble {
+    padding: 0.7rem 0.9rem;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.comment-own {
+    background-color: #d2ddcc; /* Tu color actual */
+    color: #111827;
+    border-bottom-right-radius: 4px;
+    margin-left: auto; /* Alinea los comentarios propios a la derecha */
+}
+
+.comment-other {
+    background-color: #f0f3f7; /* Tu color actual */
+    color: #4b5563;
+    border-bottom-left-radius: 4px;
+    margin-right: auto; /* Alinea los comentarios de otros a la izquierda */
+}
+
+/* Ajustes para el header del comentario (fecha y acciones) */
+.comment-bubble .comment-header { /* Selector más específico */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    margin-bottom: 0.2rem;
+}
+
+.comment-author {
+    font-weight: 600;
+}
+
+.comment-date {
+    font-size: 0.7rem;
+    color: #4b5563;
+    margin-right: 10px; /* Espacio entre la fecha y los botones de acción */
+}
+
+.comment-other .comment-date {
+    color: #4b5563;
+}
+
+.comment-content {
+    font-size: 0.9rem;
+}
+
+/* --- Estilos para los botones de acción (Editar/Eliminar) --- */
+.comment-actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    color: #888; /* Color por defecto de los iconos */
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0 5px; /* Pequeño padding para facilitar el clic */
+    transition: color 0.2s ease; /* Suaviza el cambio de color al hover */
+}
+
+.action-button:hover {
+    color: #191970; /* Color al pasar el ratón (puedes usar un color de tu gama si lo tienes) */
+}
+
+.action-button.delete:hover {
+    color: #dc3545; /* Rojo para el botón de eliminar al pasar el ratón */
+}
+
+
+.comment-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.comment-input {
+    flex: 1;
+    padding: 0.7rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    font-size: 0.9rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: #191970; /* Azul oscuro para el foco */
+    box-shadow: 0 0 0 2px rgba(25, 25, 112, 0.2);
+}
+
+.send-comment-button {
+    background-color: #315d2c; /* Usando tu primary-color */
+    color: #ffffff;
+    border: none;
+    padding: 0.7rem 1.2rem;
+    border-radius: 18px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.send-comment-button:hover {
+    background-color: #4B5922; /* Usando tu primary-hover */
+}
+
+.send-comment-button:disabled {
+    background-color: #B7C686; /* Usando tu primary-lighter para disabled */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.login-prompt {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #6b7280;
+}
+
+.send-comment-button {
+    padding: 0.7rem 1.4rem;
+    background-color: #315d2c;
+    color: #ffffff;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    font-size: 0.9rem;
+    flex-shrink: 0; /* Evita que el botón se encoja */
+}
+
+.send-comment-button:hover {
+    background-color: #8DA054;
+}
+
+.send-comment-button:disabled {
+    background-color: #cccccc;
+    color: #999999;
+    cursor: not-allowed;
+}
+
+.comment-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.action-button {
+    background: none;
+    border: none;
+    padding: 0.2rem;
+    cursor: pointer;
+    color: #4b5563;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.action-button:hover {
+    color: #191970;
+    background-color: rgba(25, 25, 112, 0.1);
+}
+
+.action-button.delete:hover {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.comment-own .action-button {
+    color: #525551;
+}
+
+.comment-own .action-button:hover {
+    color: #000733;
+    background-color: rgba(25, 25, 112, 0.15);
+}
+
+.comment-own .action-button.delete:hover {
+    color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.2);
+}

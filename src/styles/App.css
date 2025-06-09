@@ -1,0 +1,174 @@
+:root {
+  /* Colores primarios */
+  --primary-color: #315d2c; /* Verde principal */
+  --primary-hover: #4B5922; /* Verde más oscuro para estados hover/activo */
+  --primary-light: #8DA054; /* Verde más claro, ideal para fondos sutiles o elementos secundarios */
+  --primary-lighter: #B7C686; /* Verde muy claro para fondos o acentos muy sutiles */
+
+  /* Colores neutros/texto */
+  --text-primary: #1F2937; /* Gris oscuro casi negro para texto principal (más suave que #111827) */
+  --text-secondary: #4B5563; /* Gris medio para texto secundario o descripciones */
+  --text-light: #6B7280; /* Gris claro para texto de apoyo o deshabilitado */
+  --border-color: #D1D5DB; /* Gris claro para bordes */
+  --bg-light: #F9FAFB; /* Fondo muy claro, casi blanco */
+  --bg-dark: #E5E7EB; /* Fondo gris claro, útil para secciones o tarjetas */
+
+  /* Colores de acento (opcionales, según tu necesidad) */
+  --accent-color-1: #A7632C; /* Naranja quemado (complementario al verde) */
+  --accent-color-2: #2C6373; /* Azul verdoso (complementario al verde) */
+
+  /* Colores de estado (para mensajes de éxito, error, advertencia) */
+  --success-color: #34D399; /* Verde para éxito */
+  --error-color: #EF4444; /* Rojo para errores */
+  --warning-color: #FBBF24; /* Amarillo para advertencias */
+
+  /* Fondos y sombras */
+  --card-bg: #FFFFFF; /* Fondo de tarjetas */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08); /* Sombra suave */
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra media */
+  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15); /* Sombra grande */
+
+  /* Radios de borde */
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --radius-lg: 16px; /* Añadido un radio más grande */
+
+  /* Transiciones */
+  --transition-normal: all 0.3s ease-in-out; /* Transición general */
+  --transition-fast: all 0.2s ease-out; /* Transición más rápida */
+}
+
+#root,
+#app {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilos específicos para los elementos del paginador */
+.pagination .page-item .page-link {
+  color: var(--primary-color); /* Color del texto de los números y flechas */
+  background-color: var(--card-bg); /* Fondo blanco por defecto */
+  border: 1px solid var(--primary-light); /* Borde del elemento */
+  transition: all 0.3s ease; /* Transición suave para efectos hover */
+}
+
+/* Estilos para el estado activo (número de página actual) */
+.pagination .page-item.active .page-link {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--card-bg); /* Texto blanco para el activo */
+}
+
+/* Estilos al pasar el ratón (hover) */
+.pagination .page-item .page-link:hover {
+  background-color: var(--primary-lighter);
+  border-color: var(--primary-hover);
+}
+
+/* Estilos para elementos deshabilitados (flechas Anterior/Siguiente) */
+.pagination .page-item.disabled .page-link {
+  color: var(--primary-lighter); /* Color más claro para texto deshabilitado */
+  background-color: #e9ecef; /* Fondo ligeramente gris para deshabilitado */
+  border-color: var(--primary-light);
+  cursor: not-allowed;
+}
+
+/* Si quieres que las elipsis también tengan un color específico */
+.pagination .page-item.disabled .page-link[aria-label="Ellipsis"] {
+  background-color: transparent; /* Las elipsis suelen no tener fondo */
+  border-color: transparent;
+  color: var(--primary-lighter);
+}
+
+
+.app-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logout-button {
+  width: auto;
+  background-color: var(--error-color);
+}
+
+.logout-button:hover {
+  background-color: #c0392b;
+}
+
+.dashboard-content {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  animation: slide-in 0.3s ease-out;
+}
+
+.notification.success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.notification.error {
+  background-color: var(--error-color);
+  color: white;
+}
+
+.notification.info {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.error-message {
+  color: #d63333;
+  background-color: #ffe5e5;
+  padding: 10px 15px;
+  border-left: 4px solid #d63333;
+  font-size: 14px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

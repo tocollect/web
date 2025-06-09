@@ -1,0 +1,351 @@
+/* Estilo unificado para CatalogList y ItemList */
+.catalog-list-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Encabezado con título y botón */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 0 15px;
+  flex-wrap: wrap;
+  position: relative;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.catalog-list-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #1a202c;
+  margin: 0;
+  padding: 10px 0;
+  flex: 1;
+  position: relative;
+}
+
+.catalog-list-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+/* Contenedor del botón */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 40px;
+  padding-right: 10px;
+}
+
+/* Botón expandible con "+" */
+.expandable-add-button {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  color: #333;
+  border-radius: 24px;
+  height: 48px;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  overflow: visible; /* Cambiado de hidden a visible */
+  transition: all 0.3s ease;
+  border: none;
+  text-decoration: none;
+}
+
+/* Ícono "+" */
+.plus-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4B5922;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+/* Texto del botón */
+.button-text {
+  white-space: nowrap;
+  padding: 0 16px 0 12px;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.5s ease, max-width 0.5s ease; /* Aumentado el tiempo de transición */
+  color: #4caf50;
+  font-weight: 500;
+  position: relative; /* Añadido */
+  z-index: 1; /* Añadido */
+}
+
+/* Área de hover extendida */
+.expandable-add-button::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: transparent;
+  z-index: 0;
+}
+
+/* Efectos al pasar el ratón */
+.expandable-add-button:hover .button-text {
+  max-width: 200px;
+  opacity: 1;
+}
+
+.expandable-add-button:hover .plus-icon {
+  background-color: #45a049;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.expandable-add-button:hover {
+  background-color: #4B5922;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid para catálogos/ítems */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  width: 100%;
+}
+
+/* Estilo de las tarjetas (USANDO ESTILO DE ITEMLIST) */
+.catalog-card {
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+}
+
+.catalog-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.catalog-image-container {
+  position: relative;
+  height: 180px;
+  overflow: hidden;
+}
+
+.catalog-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.catalog-card:hover .catalog-card-image {
+  transform: scale(1.05);
+}
+
+.catalog-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.3rem;
+  color: #2c3e50;
+  padding: 16px 16px 0 16px;
+}
+
+.catalog-card p {
+  color: #555;
+  font-size: 0.95rem;
+  margin: 0 0 15px 0;
+  line-height: 1.5;
+  padding: 0 16px 16px 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Botones de acción para las tarjetas - MODIFICADO */
+.edit-button, .edit-catalog-button, .edit-item-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(44, 62, 80, 0.8);
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  border: none;
+  font-size: 16px;
+}
+
+.edit-button:hover, .edit-catalog-button:hover, .edit-item-button:hover {
+  background-color: rgba(44, 62, 80, 1);
+  transform: scale(1.1);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.delete-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(231, 76, 60, 0.8);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  transition: all 0.2s ease;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.delete-button:hover {
+  background-color: rgba(231, 76, 60, 1);
+  transform: scale(1.1);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+/* Badge de deshabilitado */
+.disabled-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(231, 76, 60, 0.85);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Botón de regreso */
+.back-button {
+  background-color: #315d2c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+  margin-top: 6rem;
+}
+
+.back-button:hover {
+  background-color: #8DA054;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+}
+
+.arrow {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Mensaje cuando no hay catálogos */
+.catalog-list-empty {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  margin-top: 20px;
+  color: #6c757d;
+  font-size: 1.2rem;
+  width: 100%;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #e53e3e;
+  text-align: center;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba(229, 62, 62, 0.1);
+  border-radius: var(--radius-sm);
+  width: 100%;
+}
+
+/* Animación para los elementos al cargar */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.catalog-card {
+  animation: fadeInUp 0.3s ease forwards;
+}
+
+/* Estilos responsivos */
+@media (max-width: 1024px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: 20px;
+  }
+
+  .expandable-add-button {
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 640px) {
+  .catalog-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .catalog-list-page {
+    padding: 1rem;
+  }
+}

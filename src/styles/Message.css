@@ -1,0 +1,65 @@
+/* Contenedor principal de los mensajes */
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    overflow-y: auto;
+    background-color: #f9fafb; /* Fondo claro para el área de mensajes */
+}
+
+/* Estilo general del mensaje */
+.message {
+    max-width: 70%; /* Ancho máximo del mensaje */
+    margin-bottom: 8px; /* Espacio entre mensajes */
+    padding: 8px 12px; /* Espaciado interno */
+    border-radius: var(--radius-sm); /* Bordes redondeados */
+    font-size: 14px;
+    line-height: 1.4;
+    position: relative;
+    word-break: break-word; /* Manejo de palabras largas */
+}
+
+/* Mensajes enviados por el usuario actual */
+.message.sent {
+    align-self: flex-end; /* Alineación a la derecha */
+    background-color: #dcf8c6; /* Verde claro para mensajes enviados */
+    color: var(--text-primary);
+    border-bottom-right-radius: 0; /* Eliminar el radio en la esquina inferior derecha */
+}
+
+/* Mensajes recibidos de otros usuarios */
+.message.received {
+    align-self: flex-start; /* Alineación a la izquierda */
+    background-color: #ffffff; /* Blanco para mensajes recibidos */
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm); /* Sombra ligera para destacar */
+    border-bottom-left-radius: 0; /* Eliminar el radio en la esquina inferior izquierda */
+}
+
+/* Contenido del mensaje */
+.message-content {
+    word-break: break-word; /* Manejo de palabras largas */
+}
+
+.message-content strong {
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+/* Pie del mensaje (timestamp y estado de lectura) */
+.message-footer {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+.timestamp {
+    margin-right: 8px;
+}
+
+.read-status {
+    font-size: 14px;
+    font-weight: bold;
+}
