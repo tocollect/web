@@ -2,8 +2,8 @@ import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 import { api } from '../api/api';
 
-const BASE_URL = "http://localhost:8080";
-//const BASE_URL = "https://tocollect.ngrok.app";
+//const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://tocollect.ngrok.app";
 
 class ChatService {
     constructor() {

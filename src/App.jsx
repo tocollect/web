@@ -21,6 +21,7 @@ import ProfilePage from "./pages/authPages/ProfilePage.jsx";
 import ConversationListPage from "./pages/conversationPages/ConversationListPage.jsx";
 import ChatWithSidebar from "./pages/conversationPages/ChatWithSidebar.jsx";
 import JuegoTuberia from './components/JuegoTuberia.jsx';
+import LoginPage from './pages/authPages/LoginPages.jsx';
 
 // Componente protegido que verifica si el usuario está autenticado
 const ProtectedRoute = ({children}) => {
@@ -159,7 +160,7 @@ function App() {
                         />
 
                         <Route path="/" element={<Navigate to="/dashboard" replace/>}/>
-                        <Route path="*" element={<JuegoTuberia/>}/>
+                        <Route path="*" element={<LoginPage/>}/>
                     </Routes>
                 </AuthProvider>
             </div>
