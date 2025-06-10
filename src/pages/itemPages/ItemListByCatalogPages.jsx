@@ -36,7 +36,6 @@ const ItemListByCatalogPages = () => {
         const catalogData = await getCatalogById(id);
         setCatalog(catalogData);
       } catch (err) {
-        console.error('Error al cargar catálogo:', err);
         setError('No se pudo cargar la información del catálogo.');
       }
     };
@@ -58,14 +57,7 @@ const ItemListByCatalogPages = () => {
     try {
       let response;
       if (isCurrentlySearching) {
-        // Para búsqueda, usar el endpoint sin paginación (como en tu código original)
-        const searchResults = await seachItemsByCatalog(queryToFetch.trim(), id);
-        // Simular estructura de página para consistencia
-        response = {
-          content: searchResults,
-          totalPages: 1,
-          number: 0
-        };
+        response = await seachItemsByCatalog(queryToFetch.trim(), id, pageToFetch, pageSize);
       } else {
         // Para carga normal, usar paginación
         response = await getItemsByCatalogIdPaginated(id, pageToFetch, pageSize);
@@ -76,7 +68,6 @@ const ItemListByCatalogPages = () => {
       setCurrentPage(response.number !== undefined ? response.number : 0);
 
     } catch (err) {
-      console.error("Error al cargar o buscar items:", err);
       setError(isCurrentlySearching ? 'Error al buscar items.' : 'No se pudieron cargar los ítems. Por favor, intente nuevamente.');
       setItems([]);
       setTotalPages(0);
@@ -117,6 +108,70 @@ const ItemListByCatalogPages = () => {
       // Si no es propietario, ir a los catálogos del usuario específico
       navigate('/dashboard/catalogList');
     }
+  };
+
+  // --- Renderizado del componente de paginación completo ---
+  const renderPagination = () => {
+    if (totalPages <= 1) return null;
+
+    const pages = [];
+    const maxVisiblePages = 5;
+    const startPage = Math.max(0, currentPage - Math.floor(maxVisiblePages / 2));
+    const endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
+
+    // Primera página si no está visible
+    if (startPage > 0) {
+      pages.push(
+          <Pagination.Item key={0} onClick={() => handlePageChange(0)}>
+            1
+          </Pagination.Item>
+      );
+      if (startPage > 1) {
+        pages.push(<Pagination.Ellipsis key="start-ellipsis" />);
+      }
+    }
+
+    // Páginas visibles
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+          <Pagination.Item
+              key={i}
+              active={i === currentPage}
+              onClick={() => handlePageChange(i)}
+          >
+            {i + 1}
+          </Pagination.Item>
+      );
+    }
+
+    // Última página si no está visible
+    if (endPage < totalPages - 1) {
+      if (endPage < totalPages - 2) {
+        pages.push(<Pagination.Ellipsis key="end-ellipsis" />);
+      }
+      pages.push(
+          <Pagination.Item
+              key={totalPages - 1}
+              onClick={() => handlePageChange(totalPages - 1)}
+          >
+            {totalPages}
+          </Pagination.Item>
+      );
+    }
+
+    return (
+        <Pagination className="mt-4">
+          <Pagination.Prev
+              onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
+              disabled={currentPage === 0}
+          />
+          {pages}
+          <Pagination.Next
+              onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
+              disabled={currentPage === totalPages - 1}
+          />
+        </Pagination>
+    );
   };
 
   // --- Renderizado del contenido de items ---
@@ -195,75 +250,10 @@ const ItemListByCatalogPages = () => {
           </div>
         </div>
 
-        {/* Contenedor para paginación y botón de volver */}
         <div className="pagination-and-back-container">
-          {/* Paginación (solo mostrar si no estamos buscando y hay más de una página) */}
-          {!isSearching && totalPages > 1 && (
-              <Pagination className="mt-4">
-                <Pagination.Prev
-                    onClick={() => handlePageChange(Math.max(currentPage - 1, 0))}
-                    disabled={currentPage === 0}
-                />
+          {renderPagination()}
 
-                {/* Mostrar páginas con lógica para evitar demasiados números */}
-                {(() => {
-                  const pages = [];
-                  const maxVisiblePages = 5;
-                  const startPage = Math.max(0, currentPage - Math.floor(maxVisiblePages / 2));
-                  const endPage = Math.min(totalPages - 1, startPage + maxVisiblePages - 1);
-
-                  // Primera página si no está visible
-                  if (startPage > 0) {
-                    pages.push(
-                        <Pagination.Item key={0} onClick={() => handlePageChange(0)}>
-                          1
-                        </Pagination.Item>
-                    );
-                    if (startPage > 1) {
-                      pages.push(<Pagination.Ellipsis key="start-ellipsis" />);
-                    }
-                  }
-
-                  // Páginas visibles
-                  for (let i = startPage; i <= endPage; i++) {
-                    pages.push(
-                        <Pagination.Item
-                            key={i}
-                            active={i === currentPage}
-                            onClick={() => handlePageChange(i)}
-                        >
-                          {i + 1}
-                        </Pagination.Item>
-                    );
-                  }
-
-                  // Última página si no está visible
-                  if (endPage < totalPages - 1) {
-                    if (endPage < totalPages - 2) {
-                      pages.push(<Pagination.Ellipsis key="end-ellipsis" />);
-                    }
-                    pages.push(
-                        <Pagination.Item
-                            key={totalPages - 1}
-                            onClick={() => handlePageChange(totalPages - 1)}
-                        >
-                          {totalPages}
-                        </Pagination.Item>
-                    );
-                  }
-
-                  return pages;
-                })()}
-
-                <Pagination.Next
-                    onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages - 1))}
-                    disabled={currentPage === totalPages - 1}
-                />
-              </Pagination>
-          )}
-
-          {/* Botón volver */}
-          <button className="back-button" style={{marginTop:"3rem"}} onClick={handleBackNavigation}>
+          <button className="back-button" style={{ marginTop: "3rem" }} onClick={handleBackNavigation}>
             <span className="arrow">←</span> Volver a Catálogos
           </button>
         </div>

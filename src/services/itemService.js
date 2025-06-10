@@ -1,6 +1,5 @@
 import { api } from "../api/api";
 
-// Función para obtener ítems por ID de catálogo
 export const getItemsByCatalogId = async (id) => {
   try {
     const response = await api.get(`/items/catalog/${id}`);
@@ -15,7 +14,9 @@ export const getItemsByCatalogId = async (id) => {
 
 export const getItemsByCatalogIdPaginated = async (catalogId, page = 0, size = 6) => {
   try {
-    const response = await api.get(`/items/catalog/${catalogId}`);
+    const response = await api.get(`/items/catalog/${catalogId}`,{
+      params: { page, size }
+    });
     if (response.status !== 200) {
       throw new Error(`Respuesta inesperada: ${response.status}`);
     }
@@ -83,29 +84,29 @@ export const getImageItem = async (userId, type) => {
     const response = await api.get(`/images/profile/${type}/${userId}/raw`, {
       responseType: 'blob',
     });
-    
+
     if (!response.data || response.data.size === 0) {
       throw new Error("No hay imagen disponible");
     }
-    
+
     const imageUrl = URL.createObjectURL(response.data);
     return imageUrl;
   } catch (error) {
-    // Manejar específicamente el error 404 (no encontrado)
     if (error.response?.status === 404) {
       console.log(`No se encontró imagen para ${type} con ID: ${userId}`);
-      return null; // Retornar null cuando no hay imagen, no lanzar error
+      return null;
     }
-    
-    // Para otros errores, usar el manejador de errores
+
     console.error(`Error al cargar imagen para ${type} ID ${userId}:`, error);
     throw handleApiError(error, "Error al mostrar imagen del item");
   }
 };
 
-export const seachItemsByCatalog = async (query, catalogId) => {
+export const seachItemsByCatalog = async (query, catalogId, page = 0, size = 10) => {
   try {
-    const response = await api.get(`/items/catalog/${catalogId}/search?query=${query}`);
+    const response = await api.get(`/items/catalog/${catalogId}/search`, {
+      params: { query, page, size },
+    });
     if (response.status !== 200) {
       throw new Error(`Respuesta inesperada: ${response.status}`);
     }
@@ -114,6 +115,8 @@ export const seachItemsByCatalog = async (query, catalogId) => {
     handleApiError(error, "Error al buscar el catalogo");
   }
 }
+
+
 
 // Función auxiliar para manejar errores
 const handleApiError = (error, defaultMessage) => {

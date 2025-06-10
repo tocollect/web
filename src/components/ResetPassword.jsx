@@ -31,7 +31,7 @@ const ResetPassword = () => {
         setToken(tokenParam);
 
         // Validar el token
-        axios.get(`http://localhost:8080/api/password/validate?token=${tokenParam}`)
+        axios.get(`https://tocollect.ngrok.app/api/password/validate?token=${tokenParam}`)
             .then(() => {
                 setIsValid(true);
                 setIsLoading(false);
