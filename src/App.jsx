@@ -39,7 +39,7 @@ const AuthLayout = ({children}) => {
 
 function App() {
     return (
-        <Router>
+        <Router basename='/web'>
             <div className="app-container">
                 <AuthProvider>
                     <NotificationDisplay/>
@@ -160,7 +160,6 @@ function App() {
                         />
 
                         <Route path="/" element={<Navigate to="/dashboard" replace/>}/>
-                        <Route path="/web" element={<Navigate to="/dashboard" replace/>}/>
                         <Route path="*" element={<LoginPage/>}/>
                     </Routes>
                 </AuthProvider>
