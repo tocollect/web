@@ -160,6 +160,7 @@ function App() {
                         />
 
                         <Route path="/" element={<Navigate to="/dashboard" replace/>}/>
+                        <Route path="/web" element={<Navigate to="/dashboard" replace/>}/>
                         <Route path="*" element={<LoginPage/>}/>
                     </Routes>
                 </AuthProvider>
