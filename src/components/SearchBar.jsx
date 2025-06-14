@@ -60,7 +60,6 @@ const SearchBar = ({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // No hacer nada en submit, el useEffect maneja la búsqueda
     };
 
     return (

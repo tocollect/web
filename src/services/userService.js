@@ -1,4 +1,3 @@
-import { BsTypeH2 } from "react-icons/bs";
 import { api } from "../api/api";
 
 export const getUserById = async (userId) => {

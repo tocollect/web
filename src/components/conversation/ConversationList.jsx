@@ -15,7 +15,6 @@ const ConversationList = ({ status }) => {
             const data = status === 'ACTIVE' 
                 ? await getConversationsActiveByUserId(user.id)
                 : await getConversationsArchivedByUserId(user.id);
-            // Transform API response to use uppercase status
             console.log('Datos de la API:', data);
             const transformedData = data?.map(conv => ({
                 ...conv,

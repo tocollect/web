@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllCatalog, searchCatalog } from '../../services/catalogService'; // Asegúrate de implementar searchCatalog
+import { getAllCatalog, searchCatalog } from '../../services/catalogService';
 import CatalogList from '../../components/catalog/CatalogList.jsx';
 import Pagination from 'react-bootstrap/Pagination';
 import SearchBar from '../../components/SearchBar.jsx';
@@ -9,12 +9,12 @@ import '../../styles/CatalogListPage.css';
 const CatalogListPages = () => {
   const [catalogs, setCatalogs] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0); // Backend empieza en página 0
-  const [pageSize, setPageSize] = useState(6); // Elementos por página
+  const [currentPage, setCurrentPage] = useState(0);
+  const [pageSize, setPageSize] = useState(6);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(''); // Estado para el término de búsqueda
-  const [isSearching, setIsSearching] = useState(false); // Estado para saber si estamos en modo búsqueda
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
 
   // Función para cargar catálogos (búsqueda o todos)
@@ -50,22 +50,17 @@ const CatalogListPages = () => {
     fetchCatalogs(currentPage, searchQuery);
   }, [currentPage, pageSize]);
 
-  // Manejador de búsqueda
   const handleSearch = async (query) => {
-    // Actualizar el estado del término de búsqueda
     setSearchQuery(query);
     
-    // Resetear a la primera página cuando se hace una nueva búsqueda
     setCurrentPage(0);
     
-    // Realizar la búsqueda
     await fetchCatalogs(0, query);
   };
 
   // Manejador para cambio de página
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
-    // fetchCatalogs se ejecutará automáticamente por el useEffect
   };
 
   // Función para limpiar la búsqueda
@@ -90,7 +85,6 @@ const CatalogListPages = () => {
         </div>
       </div>
 
-      {/* Barra de búsqueda */}
       <div className="search-section">
         <SearchBar 
           onSearch={handleSearch} 
@@ -107,7 +101,6 @@ const CatalogListPages = () => {
         )}
       </div>
 
-      {/* Grilla de catálogos */}
       <div className="catalog-grid">
         {catalogs.length === 0 ? (
           <p>
@@ -121,9 +114,7 @@ const CatalogListPages = () => {
         )}
       </div>
 
-      {/* Contenedor para paginación y botón de volver */}
       <div className="pagination-and-back-container">
-        {/* Paginación */}
         {totalPages > 1 && (
           <Pagination className="mt-4">
             <Pagination.Prev
@@ -131,7 +122,6 @@ const CatalogListPages = () => {
               disabled={currentPage === 0}
             />
 
-            {/* Mostrar páginas con lógica para evitar demasiados números */}
             {(() => {
               const pages = [];
               const maxVisiblePages = 5;
@@ -163,7 +153,6 @@ const CatalogListPages = () => {
                 );
               }
 
-              // Última página si no está visible
               if (endPage < totalPages - 1) {
                 if (endPage < totalPages - 2) {
                   pages.push(<Pagination.Ellipsis key="end-ellipsis" />);
@@ -189,7 +178,6 @@ const CatalogListPages = () => {
           </Pagination>
         )}
 
-        {/* Botón volver */}
         <button className="back-button" style={{marginTop:"3rem"}} onClick={() => navigate('/dashboard')}>
           <span className="arrow">←</span>
           <span>Volver</span>

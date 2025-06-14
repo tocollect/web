@@ -1,6 +1,5 @@
 import { api } from "../api/api";
 
-
 export const getCommentsByItemIdOrdered = async (itemId) => {
   try {
     const response = await api.get(`/comments/item/${itemId}/ordered`);

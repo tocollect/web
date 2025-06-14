@@ -13,7 +13,7 @@ export const useAuth = () => {
     return context;
 };
 
-// Función mejorada para verificar autenticación
+// Función para verificar autenticación
 export const fetchAuthenticatedUser = async (token) => {
     try {
         const response = await api.get(`/auth/me`, {

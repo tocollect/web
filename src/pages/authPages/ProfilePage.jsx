@@ -1,5 +1,3 @@
-// src/pages/ProfilePage.jsx
-
 import { useState, useEffect, useContext, useRef } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { getUserById, updateUser, getImageProfile, getCountCatalogAndItemByUser } from '../../services/userService';
@@ -43,7 +41,6 @@ const ProfilePage = () => {
                     password: '',
                 });
 
-                // Cargar imagen de perfil
                 try {
                     const imageUrl = await getImageProfile(user.id);
                     setProfileImageUrl(imageUrl);
@@ -65,7 +62,6 @@ const ProfilePage = () => {
                 setCounts(countsData);
             } catch (err) {
                 console.error('Error al cargar conteos:', err.message);
-                // No mostrar error al usuario, usar valores por defecto
                 setCounts({ catalogCount: 0, itemCount: 0 });
             } finally {
                 setLoadingCounts(false);
@@ -178,7 +174,6 @@ const ProfilePage = () => {
             </div>
 
             <div className="profile-container">
-                {/* Notificaciones */}
                 {success && (
                     <div className="notification success">
                         <FiCheck className="notification-icon" />
@@ -191,7 +186,6 @@ const ProfilePage = () => {
                     </div>
                 )}
 
-                {/* Sección de imagen de perfil */}
                 <div className="profile-header-card">
                     <div className="profile-image-container">
                         <div className="profile-avatar-wrapper">
@@ -224,7 +218,6 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
-                {/* Estadísticas del usuario */}
                 <div className="profile-section">
                     <h3 className="section-title">Tus estadísticas</h3>
                     <div className="stats-container">
@@ -266,7 +259,6 @@ const ProfilePage = () => {
                     </div>
                 </div>
 
-                {/* Información del perfil */}
                 <div className="profile-section">
                     <h3 className="section-title">Información personal</h3>
 
@@ -282,7 +274,6 @@ const ProfilePage = () => {
                         </div>
                     </div>
 
-                    {/* Nombre */}
                     <div className="profile-field">
                         <div className="field-icon">
                             <FiUser />
@@ -335,7 +326,6 @@ const ProfilePage = () => {
                         </div>
                     </div>
 
-                    {/* Teléfono */}
                     <div className="profile-field">
                         <div className="field-icon">
                             <FiPhone />

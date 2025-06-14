@@ -1,34 +1,31 @@
-// src/components/item/EditItemForm.jsx
 import React, { useState, useEffect, useRef } from "react";
 import { updateItem, getItemById, getImageItem } from "../../services/itemService";
-import { convertImageToBase64 } from "../../utils/imageUtils"; // Usamos el conversor de base64
-import defaultItemImage from '../../assets/to_collect.png'; // Imagen por defecto
-import "../../styles/ItemForm.css"; // Asegúrate de que los estilos soporten los nuevos elementos
+import { convertImageToBase64 } from "../../utils/imageUtils";
+import defaultItemImage from '../../assets/to_collect.png';
+import "../../styles/ItemForm.css";
 
 const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
     const [formData, setFormData] = useState({
         catalogId: 0,
         name: "",
         description: "",
-        imageUrl: null, // Será string base64 si se cambia, "" si se borra, o null si no se toca
+        imageUrl: null,
         enabled: true
     });
 
-    const [existingImageUrl, setExistingImageUrl] = useState(""); // Para la imagen que viene del servidor
-    const [previewImage, setPreviewImage] = useState(""); // Para la nueva imagen seleccionada
+    const [existingImageUrl, setExistingImageUrl] = useState("");
+    const [previewImage, setPreviewImage] = useState("");
     
-    const [loading, setLoading] = useState(true); // Carga del formulario
-    const [loadingImage, setLoadingImage] = useState(false); // Carga de la imagen
+    const [loading, setLoading] = useState(true);
+    const [loadingImage, setLoadingImage] = useState(false);
     const [error, setError] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const fileInputRef = useRef(null);
 
-    // Cargar los datos y la imagen del item existente
     useEffect(() => {
         const fetchItemData = async () => {
             setLoading(true);
             try {
-                // 1. Obtener datos del ítem
                 const itemData = await getItemById(itemId);
                 setFormData({
                     catalogId: itemData.catalogId,
@@ -38,10 +35,9 @@ const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
                     enabled: itemData.enabled !== false
                 });
 
-                // 2. Obtener imagen del ítem
                 setLoadingImage(true);
                 const imageUrl = await getImageItem(itemId, "ITEM");
-                setExistingImageUrl(imageUrl || ""); // Si no hay imagen, un string vacío
+                setExistingImageUrl(imageUrl || "");
                 
             } catch (err) {
                 console.error("Error al cargar el ítem:", err);
@@ -54,7 +50,6 @@ const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
         fetchItemData();
     }, [itemId]);
     
-    // Limpieza de URL de blob al desmontar
     useEffect(() => {
         return () => {
             if (existingImageUrl && existingImageUrl.startsWith('blob:')) {
@@ -76,8 +71,8 @@ const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
         if (file) {
             try {
                 const base64Image = await convertImageToBase64(file);
-                setPreviewImage(base64Image); // Actualizar la vista previa con la nueva imagen
-                setFormData(prev => ({ ...prev, imageUrl: base64Image })); // Guardar la nueva imagen para enviarla
+                setPreviewImage(base64Image);
+                setFormData(prev => ({ ...prev, imageUrl: base64Image }));
             } catch (err) {
                 setError("Error al procesar la imagen.");
             }
@@ -85,11 +80,11 @@ const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
     };
 
     const handleRemoveImage = () => {
-        setPreviewImage(""); // Limpiar la vista previa de la imagen nueva
-        setExistingImageUrl(""); // Limpiar la vista de la imagen existente
-        setFormData(prev => ({ ...prev, imageUrl: "" })); // Enviar "" para que el backend la elimine
+        setPreviewImage("");
+        setExistingImageUrl("");
+        setFormData(prev => ({ ...prev, imageUrl: "" }));
         if (fileInputRef.current) {
-            fileInputRef.current.value = null; // Resetear el input file
+            fileInputRef.current.value = null;
         }
     };
     
@@ -111,7 +106,7 @@ const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
 
             setTimeout(() => {
                 if (onItemUpdated) onItemUpdated(result);
-            }, 1500);
+            }, 500);
 
         } catch (err) {
             console.error("Error al actualizar el ítem:", err);
@@ -121,7 +116,6 @@ const EditItemForm = ({ itemId, onItemUpdated, onCancel }) => {
         }
     };
     
-    // La imagen a mostrar es: la nueva previsualización, o la existente, o la de por defecto
     const imageToShow = previewImage || existingImageUrl || defaultItemImage;
 
     return (

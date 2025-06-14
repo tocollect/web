@@ -1,9 +1,9 @@
 import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/api.js";
-import { clearToken, setToken } from "../api/auth.js";
+import { clearToken } from "../api/auth.js";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { AuthContext } from "../context/AuthContext"; // Importamos el contexto de autenticación
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
     const { login, showNotification } = useContext(AuthContext);

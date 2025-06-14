@@ -27,10 +27,8 @@ const handleApiError = (error, defaultMessage) => {
             throw new Error(error.response.data?.message || `${defaultMessage} (Código: ${status})`);
         }
     } else if (error.request) {
-        // Error de red (no se recibió respuesta)
         throw new Error("No se pudo conectar al servidor. Verifica tu conexión.");
     } else {
-        // Error en la configuración de la solicitud
         throw new Error(defaultMessage);
     }
 };

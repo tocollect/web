@@ -1,4 +1,3 @@
-// src/pages/DashboardPages.jsx
 import React, { useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -17,7 +16,6 @@ const DashboardPages = () => {
 
   return (
     <div className="dashboard-container">
-      {/* Contenido principal */}
       <main className="dashboard-content">
         <div
             className="card"

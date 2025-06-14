@@ -1,4 +1,3 @@
-// /home/santi/Escritorio/workspace/react/src/pages/catalogPages/UserCatalogsPage.jsx
 import React, { useEffect, useState, useContext, useCallback } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getCatalogsByUserId, deleteCatalog, getImageCatalog, searchCatalogByUser } from "../../services/catalogService.js";
@@ -22,7 +21,7 @@ const UserCatalogsPage = () => {
 
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  const [pageSize] = useState(6); // Mantener pageSize como constante si no cambia
+  const [pageSize] = useState(6);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
@@ -45,14 +44,13 @@ const UserCatalogsPage = () => {
     determineUserId();
   }, [urlUserId, user, navigate]);
 
-  // --- Función principal para cargar y/o buscar catálogos con paginación ---
   const fetchCatalogs = useCallback(async (pageToFetch, queryToFetch) => {
     if (!userId) return;
 
     setLoading(true);
     setError(null);
     const isCurrentlySearching = queryToFetch.trim() !== '';
-    setIsSearching(isCurrentlySearching); // Actualizar estado para la UI
+    setIsSearching(isCurrentlySearching);
 
     try {
       let response;
@@ -64,7 +62,6 @@ const UserCatalogsPage = () => {
 
       setCatalogs(response.content || []);
       setTotalPages(response.totalPages || 0);
-      // Sincronizar currentPage con la página devuelta por el backend
       setCurrentPage(response.number !== undefined ? response.number : 0);
 
     } catch (err) {
@@ -77,14 +74,12 @@ const UserCatalogsPage = () => {
     }
   }, [userId, pageSize]);
 
-  // --- Efecto para la carga inicial y cambios de paginación/búsqueda ---
   useEffect(() => {
     if (userId) {
       fetchCatalogs(currentPage, searchQuery);
     }
   }, [userId, currentPage, searchQuery, fetchCatalogs]);
 
-  // --- Manejadores de la barra de búsqueda ---
   const handleSearch = useCallback((query) => {
     setSearchQuery(query);
     setCurrentPage(0); // Reinicia a la primera página para la nueva búsqueda
@@ -95,7 +90,6 @@ const UserCatalogsPage = () => {
     setCurrentPage(0);
   }, []);
 
-  // --- Lógica para cargar las imágenes de los catálogos ---
   const loadCatalogImage = useCallback(async (catalogId) => {
     if (imageUrls[catalogId] || loadingImages[catalogId]) {
       return;
@@ -135,7 +129,6 @@ const UserCatalogsPage = () => {
     setImageUrls(prev => ({ ...prev, [catalogId]: toCollectImage }));
   };
 
-  // --- Manejadores de acciones (Editar, Eliminar) ---
   const handleDeleteClick = (e, catalogId) => {
     e.stopPropagation();
     setCatalogToDelete(catalogId);
@@ -176,12 +169,10 @@ const UserCatalogsPage = () => {
     }
   };
 
-  // --- Manejador para cambio de página (igual que CatalogListPages) ---
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
-  // --- Renderizado Condicional del Contenido de Catálogos ---
   const renderCatalogContent = () => {
     if (loading && catalogs.length === 0) return <p className="loading-message">Cargando catálogos del usuario...</p>;
 
@@ -287,9 +278,7 @@ const UserCatalogsPage = () => {
           {renderCatalogContent()}
         </div>
 
-        {/* Contenedor para paginación y botón de volver (igual que CatalogListPages) */}
         <div className="pagination-and-back-container">
-          {/* Paginación con el mismo estilo que CatalogListPages */}
           {totalPages > 1 && (
               <Pagination className="mt-4">
                 <Pagination.Prev
@@ -297,7 +286,6 @@ const UserCatalogsPage = () => {
                     disabled={currentPage === 0}
                 />
 
-                {/* Mostrar páginas con lógica para evitar demasiados números */}
                 {(() => {
                   const pages = [];
                   const maxVisiblePages = 5;

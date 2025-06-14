@@ -91,7 +91,6 @@ const Chat = ({ conversationData }) => {
     }
   }, [conversationData, location.state, navigate, user?.id]);
 
-  // Función mejorada de scroll que se ejecuta cuando cambian los mensajes O el typing indicator
   const scrollToBottom = useCallback(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -106,7 +105,6 @@ const Chat = ({ conversationData }) => {
   // Efecto específico para el typing indicator - se ejecuta cuando aparece o desaparece
   useEffect(() => {
     if (typingIndicator) {
-      // Pequeño delay para asegurar que el DOM se ha actualizado
       setTimeout(scrollToBottom, 50);
     }
   }, [typingIndicator, scrollToBottom]);
@@ -120,7 +118,6 @@ const Chat = ({ conversationData }) => {
     }
     processedMessagesRef.current.add(msg.id);
 
-    // Si recibimos un mensaje del usuario que estaba escribiendo, limpiamos el indicador de typing
     if (String(msg.senderId) === String(receiverId)) {
       console.log('Chat: Mensaje recibido del usuario que estaba escribiendo, limpiando typing indicator');
       setTypingIndicator('');
@@ -137,7 +134,6 @@ const Chat = ({ conversationData }) => {
       return [...prev, msg];
     });
 
-    // Marcar como leído si el mensaje no es nuestro
     if (msg.senderId !== user?.id && msg.id && !msg.isRead) {
       setTimeout(() => {
         console.log('Chat: Enviando recibo de lectura para mensaje:', msg.id);
@@ -149,13 +145,11 @@ const Chat = ({ conversationData }) => {
   const handleTyping = useCallback((typing) => {
     console.log('Chat: Typing recibido (handleTyping):', typing);
 
-    // Solo procesar typing de otros usuarios, no del usuario actual
     if (typing?.senderId === user?.id) {
       console.log('Chat: Typing recibido de nosotros mismos, ignorando.');
       return;
     }
 
-    // Solo mostrar typing del usuario con el que estamos chateando
     if (String(typing?.senderId) !== String(receiverId)) {
       console.log('Chat: Typing recibido de usuario diferente al actual, ignorando.');
       return;
@@ -163,7 +157,6 @@ const Chat = ({ conversationData }) => {
 
     setTypingIndicator(`Usuario ${typing.senderId} está escribiendo...`);
 
-    // Limpiar timeout anterior si existe
     if (receiverTypingTimeoutRef.current) {
       clearTimeout(receiverTypingTimeoutRef.current);
     }

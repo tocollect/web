@@ -45,7 +45,6 @@ const ItemListByCatalogPages = () => {
     }
   }, [id]);
 
-  // --- Función principal para cargar y/o buscar items con paginación ---
   const fetchItems = useCallback(async (pageToFetch, queryToFetch) => {
     if (!id) return;
 
@@ -76,14 +75,13 @@ const ItemListByCatalogPages = () => {
     }
   }, [id, pageSize]);
 
-  // --- Efecto para la carga inicial y cambios de paginación/búsqueda ---
   useEffect(() => {
     if (id) {
       fetchItems(currentPage, searchQuery);
     }
   }, [id, currentPage, searchQuery, fetchItems]);
 
-  // --- Manejadores de la barra de búsqueda ---
+  // Manejadores de la barra de búsqueda
   const handleSearch = useCallback((query) => {
     setSearchQuery(query);
     setCurrentPage(0); // Reinicia a la primera página para la nueva búsqueda
@@ -94,7 +92,7 @@ const ItemListByCatalogPages = () => {
     setCurrentPage(0);
   }, []);
 
-  // --- Manejador para cambio de página ---
+  // Manejador para cambio de página
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -110,7 +108,7 @@ const ItemListByCatalogPages = () => {
     }
   };
 
-  // --- Renderizado del componente de paginación completo ---
+  // Renderizado del componente de paginación completo
   const renderPagination = () => {
     if (totalPages <= 1) return null;
 
@@ -174,7 +172,7 @@ const ItemListByCatalogPages = () => {
     );
   };
 
-  // --- Renderizado del contenido de items ---
+  // Renderizado del contenido de items
   const renderItemContent = () => {
     if (loading && items.length === 0) {
       return <div className="loading-container">Cargando ítems...</div>;
@@ -218,7 +216,6 @@ const ItemListByCatalogPages = () => {
               </div>
           )}
 
-          {/* Barra de búsqueda */}
           <div className="search-section">
             <SearchBar
                 onSearch={handleSearch}
@@ -237,14 +234,12 @@ const ItemListByCatalogPages = () => {
             )}
           </div>
 
-          {/* Mostrar indicador de búsqueda */}
           {isSearching && loading && (
               <div className="search-status">
                 <span>Buscando ítems...</span>
               </div>
           )}
 
-          {/* Contenido de items */}
           <div className="items-content">
             {renderItemContent()}
           </div>

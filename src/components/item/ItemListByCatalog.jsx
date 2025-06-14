@@ -12,7 +12,6 @@ const ItemListByCatalog = ({ items, catalogId, isOwner }) => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  // Estados para manejar las imágenes de los ítems
   const [itemImageUrls, setItemImageUrls] = useState({});
   const [loadingItemImages, setLoadingItemImages] = useState({});
   const [imageLoadAttempts, setImageLoadAttempts] = useState(new Set());
@@ -168,7 +167,6 @@ const ItemListByCatalog = ({ items, catalogId, isOwner }) => {
             onClick={() => handleItemClick(item.id)}
           >
             <div className="item-image-container">
-              {/* Indicador de carga para la imagen del ítem */}
               {loadingItemImages[item.id] && (
                 <div style={{
                   position: 'absolute',

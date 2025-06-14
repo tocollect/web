@@ -1,4 +1,3 @@
-// src/pages/itemPages/EditItemPage.jsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import EditItemForm from "../../components/item/EditItemForm";

@@ -1,4 +1,3 @@
-// src/services/ratingService.js
 import { api } from "../api/api";
 
 export const getItemAverageRating = async (itemId) => {
@@ -24,7 +23,7 @@ export const rateItem = async (itemId, rating) => {
   }
 };
 
-const handleApiError = (error, defaultMessage) => {
+export const handleApiError = (error, defaultMessage) => {
   if (error.response) {
     const status = error.response.status;
     if (status === 401) {

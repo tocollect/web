@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Chat from '../../components/message/Chat';
 import { getConversationsActiveByUserId, getConversationsArchivedByUserId } from '../../services/conversationService';
@@ -9,7 +9,6 @@ import '../../styles/ChatWithSidebar.css';
 
 const ChatWithSidebar = () => {
     const location = useLocation();
-    const navigate = useNavigate();
     const { user } = useAuth();
 
     const [conversations, setConversations] = useState([]);
@@ -44,7 +43,6 @@ const ChatWithSidebar = () => {
         }
     }, [activeTab, user?.id]); // Solo depender de activeTab y user.id
 
-    // Efecto para cargar conversaciones - solo cuando cambia loadConversations o refreshKey
     useEffect(() => {
         loadConversations();
     }, [loadConversations, refreshKey]);
@@ -83,7 +81,6 @@ const ChatWithSidebar = () => {
         }
     }, []);
 
-    // Efecto para establecer conversación inicial desde location.state
     useEffect(() => {
         if (location.state && !selectedConversation) {
             setSelectedConversation({

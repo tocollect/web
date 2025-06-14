@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'; // Importa useRef y useEffect
-import { FiEdit2, FiTrash2, FiMoreVertical } from 'react-icons/fi'; // Importa FiMoreVertical
+import React, { useState, useRef, useEffect } from 'react';
+import { FiEdit2, FiTrash2, FiMoreVertical } from 'react-icons/fi';
 import { updateConversation, deleteConversation } from '../../services/conversationService';
 import EditConversationModal from './EditConversationModal';
 import DeleteConversationModal from './DeleteConversationModal';
@@ -12,12 +12,11 @@ const ConversationCard = ({ conversation, onStatusUpdate }) => {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [showOptionsMenu, setShowOptionsMenu] = useState(false); // Nuevo estado para el menú
-    const optionsMenuRef = useRef(null); // Ref para el menú
+    const [showOptionsMenu, setShowOptionsMenu] = useState(false);
+    const optionsMenuRef = useRef(null);
     const navigate = useNavigate();
     const { user } = useAuth();
 
-    // Manejar clics fuera del menú para cerrarlo
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (optionsMenuRef.current && !optionsMenuRef.current.contains(event.target)) {
@@ -44,7 +43,7 @@ const ConversationCard = ({ conversation, onStatusUpdate }) => {
         } finally {
             setLoading(false);
             setShowEditModal(false);
-            setShowOptionsMenu(false); // Cierra el menú después de la acción
+            setShowOptionsMenu(false);
         }
     };
 
@@ -58,31 +57,27 @@ const ConversationCard = ({ conversation, onStatusUpdate }) => {
         } finally {
             setLoading(false);
             setShowDeleteModal(false);
-            setShowOptionsMenu(false); // Cierra el menú después de la acción
+            setShowOptionsMenu(false);
         }
     };
 
     const handleCardClick = async (e) => {
-        // No navegar si se hizo clic en los botones del menú o los modales
         if (e.target.closest('.conversation-actions') || e.target.closest('.modal')) {
             return;
         }
 
-        // Verificar que los campos necesarios existen
         if (!conversation.id || !conversation.senderId || !conversation.receiverId) {
             console.error('Datos de conversación incompletos:', conversation);
             return;
         }
 
         try {
-            // Obtener información del usuario autenticado
             const authenticatedUser = await chatService.fetchUserInfo();
             if (!authenticatedUser) {
                 console.error('Usuario no autenticado');
                 return;
             }
 
-            // Determinar quién es el emisor y quién es el receptor
             const senderId = authenticatedUser.id.toString();
             const receiverId = authenticatedUser.id.toString() === conversation.senderId.toString()
                 ? conversation.receiverId.toString()
@@ -126,15 +121,10 @@ const ConversationCard = ({ conversation, onStatusUpdate }) => {
             return 'Usuario desconocido';
         }
 
-        // Suponiendo que conversation.senderId y conversation.receiverId son los IDs de los usuarios
-        // y user.id es el ID del usuario actual.
-        // Aquí podrías necesitar una lógica más robusta si los nombres de usuario no están directamente en la conversación.
         const otherUserId = user.id.toString() === conversation.senderId.toString()
             ? conversation.receiverId
             : conversation.senderId;
 
-        // Idealmente, aquí buscarías el nombre del usuario con 'otherUserId'
-        // Por ahora, solo mostramos el ID
         return `Usuario ${otherUserId}`;
     };
 
@@ -168,11 +158,11 @@ const ConversationCard = ({ conversation, onStatusUpdate }) => {
                     </div>
                 </div>
 
-                <div className="conversation-actions" ref={optionsMenuRef}> {/* Añade la ref aquí */}
+                <div className="conversation-actions" ref={optionsMenuRef}>
                     <button
                         onClick={(e) => {
-                            e.stopPropagation(); // Evitar que el click se propague al card
-                            setShowOptionsMenu(!showOptionsMenu); // Alternar visibilidad del menú
+                            e.stopPropagation();
+                            setShowOptionsMenu(!showOptionsMenu);
                         }}
                         className="options-button"
                         title="Opciones de conversación"

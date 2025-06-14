@@ -1,6 +1,5 @@
 import { api } from "../api/api";
 
-// Recuperar todos los catálogos con paginación
 export const getAllCatalog = async (page = 0, size = 10) => {
     try {
         const response = await api.get("/catalogs", {
@@ -26,7 +25,6 @@ export const getCatalogById = async (id) => {
 }
 
 //Catalogos por usuario
-//Catalogos por usuario (VERSION CORREGIDA)
 export const getCatalogsByUserId = async (userId, page = 0, size = 6) => {
     try {
         // CORREGIDO: Ahora SÍ estamos pasando los parámetros de paginación
@@ -36,15 +34,9 @@ export const getCatalogsByUserId = async (userId, page = 0, size = 6) => {
                 size: size
             },
         });
-
-        console.log("Respuesta del backend:", response.data); // Para debug
-
-        // Verificar que la respuesta tenga la estructura esperada de Spring Page
         if (!response.data || typeof response.data !== 'object') {
             throw new Error("Formato de respuesta inesperado del servidor");
         }
-
-        // La respuesta debería incluir content, totalPages, number, etc.
         return response.data;
     } catch (error) {
         console.error("Error completo al cargar catálogos:", error);

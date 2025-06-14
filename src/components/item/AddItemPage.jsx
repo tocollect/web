@@ -1,4 +1,3 @@
-// src/pages/itemPages/AddItemPage.jsx
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import ItemForm from "../../components/item/ItemForm";
@@ -8,7 +7,6 @@ const AddItemPage = () => {
     const navigate = useNavigate();
 
     const handleItemAdded = (newItem) => {
-        // Redirigir a la lista de ítems del catálogo después de agregar el ítem
         setTimeout(() => {
             navigate(`/items/catalog/${catalogId}`);
         }, 1500);

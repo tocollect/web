@@ -90,7 +90,7 @@ class ChatService {
 
     async loadConversationBetweenUsers(userId) {
         try {
-            const { data } = await api.get(`/conversations/between/${this.currentUser?.id}/${userId}`);
+            const { data } = await api.get(`/conversations/between/${this.currentUser}/${userId}`);
             return data;
         } catch (error) {
             if (error.response?.status !== 404) {
@@ -161,7 +161,7 @@ class ChatService {
         }
     }
 
-    // Función mejorada para sendTyping en ChatService
+    // Función para sendTyping en ChatService
     sendTyping(conversationId, receiverId) {
         if (!this.isConnected()) {
             console.warn('No conectado, no se puede enviar typing');
@@ -179,9 +179,6 @@ class ChatService {
             senderId: this.currentUser.id,
             type: "TYPING"
         };
-
-        console.log('Enviando typing:', typing); // Para debug
-
         try {
             this.stompClient.send("/app/chat.typing", {}, JSON.stringify(typing));
         } catch (error) {

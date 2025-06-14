@@ -16,7 +16,6 @@ const StartConversationButton = ({ userId, userName }) => {
             });
         } catch (error) {
             console.error('Error al iniciar chat:', error);
-            // Aquí podrías mostrar un mensaje de error al usuario
         }
     };
 

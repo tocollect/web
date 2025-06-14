@@ -1,11 +1,9 @@
-// src/components/item/ItemCard.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Cambiamos useNavigate por Link
+import { Link } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import defaultImage from '../../assets/to_collect.png';
 
 const ItemCard = ({ item, onEdit, onDelete, isOwner }) => {
-    // En lugar de usar navigate, usamos Link que es más directo
     return (
         <Link
             to={`/items/${item.id}`}
@@ -24,7 +22,7 @@ const ItemCard = ({ item, onEdit, onDelete, isOwner }) => {
                             <button
                                 className="edit-button"
                                 onClick={(e) => {
-                                    e.preventDefault(); // Evitar la navegación por defecto del Link
+                                    e.preventDefault();
                                     e.stopPropagation();
                                     onEdit(item.id);
                                 }}
@@ -34,7 +32,7 @@ const ItemCard = ({ item, onEdit, onDelete, isOwner }) => {
                             <button
                                 className="delete-button"
                                 onClick={(e) => {
-                                    e.preventDefault(); // Evitar la navegación por defecto del Link
+                                    e.preventDefault();
                                     e.stopPropagation();
                                     onDelete(item.id);
                                 }}

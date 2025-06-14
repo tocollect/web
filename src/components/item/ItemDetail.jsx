@@ -9,13 +9,13 @@ import defaultImage from '../../assets/to_collect.png';
 import setaImage from '../../assets/seta.png';
 import '../../styles/ItemDetail.css';
 import { getCatalogById } from '../../services/catalogService';
-import chatService from '../../services/chatService';           // Asegúrate de que esta ruta sea correcta
-import '../../styles/ModalMessage.css'; // Asegúrate de que la ruta sea correcta
+import chatService from '../../services/chatService';
+import '../../styles/ModalMessage.css';
 
 const ItemDetail = () => {
     const { itemId } = useParams();
     const navigate = useNavigate();
-    const { user: currentUser } = useContext(AuthContext); // Renamed to currentUser to avoid conflict
+    const { user: currentUser } = useContext(AuthContext);
     const [item, setItem] = useState(null);
     const [averageRating, setAverageRating] = useState(0);
     const [userRating, setUserRating] = useState(0);
@@ -26,7 +26,7 @@ const ItemDetail = () => {
     const [updating, setUpdating] = useState(false);
     const [itemImageUrls, setItemImageUrls] = useState({});
     const [loadingItemImages, setLoadingItemImages] = useState({});
-    const [imageLoadAttempts] = useState(new Set()); // Usar useState para mantener el Set persistente
+    const [imageLoadAttempts] = useState(new Set());
     // New state for catalog owner ID
     const [catalogOwnerId, setCatalogOwnerId] = useState(null);
     // Modal states
@@ -121,8 +121,7 @@ const ItemDetail = () => {
                     if (catalog && catalog.userId) {
                         setCatalogOwnerId(catalog.userId);
 
-                        // LÓGICA PRINCIPAL: Verificar si ya existe una conversación
-                        if (currentUser && currentUser.id !== catalog.userId) { // Asegúrate de que no es el mismo usuario
+                        if (currentUser && currentUser.id !== catalog.userId) {
                             const conv = await chatService.loadConversationBetweenUsers(currentUser.id, catalog.userId);
                             setExistingConversation(conv); // Almacena el objeto de la conversación (o null si no existe)
                         } else {
@@ -141,7 +140,7 @@ const ItemDetail = () => {
             }
         };
         fetchData();
-    }, [itemId, currentUser]); // Dependencias: itemId y currentUser (para re-ejecutar si el usuario cambia)
+    }, [itemId, currentUser]);
 
     const handleRating = async (rating) => {
         try {
@@ -221,7 +220,7 @@ const ItemDetail = () => {
                 state: {
                     sender: currentUser.id.toString(),
                     receiver: catalogOwnerId.toString(),
-                    conversationId: existingConversation.id.toString() // Usa el ID de la conversación existente
+                    conversationId: existingConversation.id.toString()
                 }
             });
         } else {
@@ -251,8 +250,7 @@ const ItemDetail = () => {
                 });
                 conversationToUse = { id: initialMessageResponse.conversationId }; // Asume que la respuesta tiene conversationId
             } else {
-                // Si la conversación ya existía, simplemente enviamos el mensaje a esa conversación
-                console.log("Conversation already exists, sending initial message to it.");
+
                 await chatService.createMessage({ // Asume que createMessage puede tomar conversationId
                     senderId: currentUser.id,
                     receiverId: catalogOwnerId, // Puede que no sea estrictamente necesario si ya tienes conversationId
@@ -260,11 +258,8 @@ const ItemDetail = () => {
                     conversationId: conversationToUse.id // Pasa el ID de la conversación existente
                 });
             }
+            setExistingConversation(conversationToUse);
 
-            // Una vez que se inicia la conversación o se envía el mensaje, actualiza el estado
-            setExistingConversation(conversationToUse); // Esto asegura que el botón se actualice
-
-            // Navega al chat
             navigate('/chat', {
                 state: {
                     sender: currentUser.id.toString(),

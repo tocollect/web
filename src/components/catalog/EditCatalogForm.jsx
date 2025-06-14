@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { getCatalogById, editCatalog, getImageCatalog } from '../../services/catalogService'; // Importar getImageCatalog
+import { getCatalogById, editCatalog, getImageCatalog } from '../../services/catalogService';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertImageToBase64 } from '../../utils/imageUtils.jsx';
 import defaultImage from '../../assets/to_collect.png';
@@ -25,7 +25,7 @@ const EditCatalogForm = () => {
         imageUrl: null, // Para la nueva imagen en base64
         enabled: true
     });
-    const [previewImage, setPreviewImage] = useState(''); // Para la vista previa de la nueva imagen
+    const [previewImage, setPreviewImage] = useState('');
 
     // --- Lógica para cargar la imagen existente ---
     const loadCatalogImage = async (catalogId) => {
@@ -77,7 +77,6 @@ const EditCatalogForm = () => {
         }
     }, [id]);
     
-    // --- Limpieza de URLs de objeto ---
     useEffect(() => {
         return () => {
             Object.values(imageUrls).forEach(url => {
@@ -89,7 +88,6 @@ const EditCatalogForm = () => {
     }, [imageUrls]);
 
 
-    // --- Manejadores de eventos ---
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -114,9 +112,9 @@ const EditCatalogForm = () => {
     };
 
     const handleRemoveImage = () => {
-        setFormData(prev => ({ ...prev, imageUrl: '' })); // Indicar que no hay imagen
-        setPreviewImage(''); // Limpiar la vista previa de la nueva imagen
-        setImageUrls(prev => ({ ...prev, [id]: defaultImage })); // Mostrar la imagen por defecto
+        setFormData(prev => ({ ...prev, imageUrl: '' }));
+        setPreviewImage('');
+        setImageUrls(prev => ({ ...prev, [id]: defaultImage }));
         if (fileInputRef.current) {
             fileInputRef.current.value = "";
         }
@@ -179,7 +177,6 @@ const EditCatalogForm = () => {
                      />
                  </div>
 
-                {/* Sección de la imagen */}
                 <div className="form-group">
                     <label htmlFor="image">Imagen (opcional):</label>
                     <div className="image-preview">
@@ -203,7 +200,6 @@ const EditCatalogForm = () => {
                      />
                 </div>
 
-                {/* Checkbox y botones */}
                 <div className="checkbox-group">
                     <input
                         id="enabled" type="checkbox" name="enabled"

@@ -8,8 +8,8 @@ import { getImageCatalog } from '../../services/catalogService';
 const CatalogList = ({ catalogs }) => {
     const navigate = useNavigate();
     const { user } = useContext(AuthContext);
-    const [imageUrls, setImageUrls] = useState({}); // URLs dinámicas de las imágenes
-    const [loadingImages, setLoadingImages] = useState({}); // Estado de carga por imagen
+    const [imageUrls, setImageUrls] = useState({});
+    const [loadingImages, setLoadingImages] = useState({});
 
     // Cargar imagen para cada catálogo
     const loadCatalogImage = async (catalogId, userId) => {

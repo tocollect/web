@@ -20,10 +20,8 @@ import ItemDetail from "./components/item/ItemDetail.jsx";
 import ProfilePage from "./pages/authPages/ProfilePage.jsx";
 import ConversationListPage from "./pages/conversationPages/ConversationListPage.jsx";
 import ChatWithSidebar from "./pages/conversationPages/ChatWithSidebar.jsx";
-import JuegoTuberia from './components/JuegoTuberia.jsx';
 import LoginPage from './pages/authPages/LoginPages.jsx';
 
-// Componente protegido que verifica si el usuario está autenticado
 const ProtectedRoute = ({children}) => {
     const token = localStorage.getItem('jwtToken');
     if (!token) {
@@ -32,7 +30,6 @@ const ProtectedRoute = ({children}) => {
     return children;
 };
 
-// Componente Layout para páginas de autenticación (sin footer)
 const AuthLayout = ({children}) => {
     return <div className="auth-layout">{children}</div>;
 };

@@ -16,9 +16,6 @@ const Message = ({ message, type }) => {
         if (type !== 'sent') {
             return null;
         }
-
-
-        // Verificar el estado de lectura con más detalle
         if (message.isRead === true) {
             return {
                 icon: '✓✓',
