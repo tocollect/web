@@ -51,7 +51,7 @@ const ResetPassword = () => {
         }
 
         try {
-            await axios.post('http://localhost:8080/api/password/change', null, {
+            await axios.post(' https://tocollect.ngrok.app/api/password/change', null, {
                 params: {
                     token,
                     newPassword

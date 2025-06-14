@@ -94,6 +94,7 @@
     margin-bottom: 0;
     padding-bottom: 15px;
     border-bottom: 1px dashed #e5e7eb;
+    overflow-y: auto;
 }
 
 .item-description h3 {

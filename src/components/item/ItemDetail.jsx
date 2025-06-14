@@ -357,7 +357,7 @@ const ItemDetail = () => {
                         />
                     </div>
                     <div className="item-detail-info">
-                        <div className="item-description">
+                        <div className="item-description" style={{overflowY: 'auto',height:'200px'}}>
                             <h3>Descripción:</h3>
                             <p>{item.description || "Sin descripción disponible"}</p>
                         </div>
