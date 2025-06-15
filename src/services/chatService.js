@@ -88,9 +88,9 @@ class ChatService {
         }
     }
 
-    async loadConversationBetweenUsers(userId) {
+    async loadConversationBetweenUsers(currentUserId, userId) {
         try {
-            const { data } = await api.get(`/conversations/between/${this.currentUser}/${userId}`);
+            const { data } = await api.get(`/conversations/between/${currentUserId}/${userId}`);
             return data;
         } catch (error) {
             if (error.response?.status !== 404) {
